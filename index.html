@@ -1,1 +1,76 @@
 
+
+<p>apt-get update<br>
+  export LANG=C.UTF-8<br>
+  apt-get install -y  software-properties-common<br>
+  add-apt-repository -y ppa:ondrej/php 
+  <br>
+  add-apt-repository -y ppa:ondrej/apache2
+  <br>
+  add-apt-repository -y ppa:certbot/certbot
+  <br>
+  apt-get update<br>
+  apt-get install -y curl zip unzip<br>
+  apt-get install php7.4-bcmath php7.4-bz2 php7.4-cgi php7.4-cli php7.4-common php7.4-curl php7.4-dba php7.4-dev php7.4-enchant php7.4-fpm php7.4-gd php7.4-gmp php7.4-imap php7.4-interbase php7.4-intl php7.4-json php7.4-ldap php7.4-mbstring php7.4-mcrypt php7.4-mysql php7.4-odbc php7.4-opcache php7.4-pgsql php7.4-phpdbg php7.4-pspell php7.4-readline php7.4-recode php7.4-snmp php7.4-soap php7.4-sqlite3 php7.4-sybase php7.4-tidy php7.4-xml php7.4-xmlrpc php7.4-xsl php7.4-zip -y<br>
+  apt-get install apache2  libapache2-mod-php7.4 mysql-server -y<br>
+  echo &quot;&lt;Directory /var/www/html&gt;&quot; &gt;&gt; /etc/apache2/sites-enabled/000-default.conf<br>
+  echo &quot;Options Indexes FollowSymLinks MultiViews&quot; &gt;&gt; /etc/apache2/sites-enabled/000-default.conf<br>
+  echo &quot;AllowOverride All&quot; &gt;&gt; /etc/apache2/sites-enabled/000-default.conf<br>
+  echo &quot;Order allow,deny&quot; &gt;&gt; /etc/apache2/sites-enabled/000-default.conf<br>
+  echo &quot;Allow from all&quot; &gt;&gt; /etc/apache2/sites-enabled/000-default.conf<br>
+  echo &quot;&lt;/Directory&gt;&quot; &gt;&gt; /etc/apache2/sites-enabled/000-default.conf<br>
+  echo &quot;Protocols h2 h2c http/1.1&quot; &gt;&gt; /etc/apache2/apache2.conf<br>
+  a2enmod rewrite<br>
+  a2enmod proxy_fcgi proxy proxy_http http2 ssl expires headers rewrite proxy_fcgi setenvif actions fastcgi alias<br>
+  a2enconf php7.4-fpm<br>
+  a2enmod http2<br>
+  a2dismod php7.4<br>
+  a2dismod mpm_prefork<br>
+  a2enmod mpm_event<br>
+  service apache2 restart</p>
+<p>#vhost<br>
+  &lt;FilesMatch \.php$&gt;<br>
+  SetHandler &quot;proxy:unix:/var/run/php/php7.2-fpm.sock|fcgi://localhost/&quot;<br>
+&lt;/FilesMatch&gt;</p>
+<p>  #Laravel<br>
+  apt-get update &amp;&amp; apt-get upgrade -y <br>
+  apt-get install -y python-software-properties software-properties-common<br>
+  add-apt-repository -y ppa:ondrej/php <br>
+  apt-key update<br>
+  apt-get update <br>
+  apt-get install -y curl zip unzip php7.2-fpm php7.2-gd php7.2-mbstring php7.2-xml php7.2-curl <br>
+  apt-get install -y apache2 libapache2-mod-php7.2 <br>
+  apt-get install -y mysql-server php7.2-mysql <br>
+  curl -sS https://getcomposer.org/installer | php <br>
+  mv composer.phar /usr/local/bin/composer <br>
+  chmod +x /usr/local/bin/composer<br>
+  cd /var/www/html<br>
+  composer install<br>
+  chown -R www-data.www-data /var/www/html<br>
+  chmod -R 755 /var/www/html<br>
+  chmod -R 777 /var/www/html/storage<br>
+  mv .env.example .env<br>
+  php artisan key:generate<br>
+  php artisan migrate<br>
+</p>
+<p>#vhost<br>
+  nano /etc/apache2/sites-available/test.com.conf<br>
+&lt;VirtualHost *:80&gt;<br>
+ServerAdmin admin@test.com<br>
+ServerName test.com<br>
+ServerAlias www.test.com<br>
+DocumentRoot /var/www/html/<br>
+ErrorLog ${APACHE_LOG_DIR}/error.log<br>
+CustomLog ${APACHE_LOG_DIR}/access.log combined<br>
+&lt;/VirtualHost&gt;<br>
+a2ensite test.com.conf<br>
+service apache2 restart</p>
+<p><br>
+  $letenscrypt<br>
+  apt-get install -y python-software-properties software-properties-common<br>
+  add-apt-repository -y ppa:certbot/certbot<br>
+  apt-key update<br>
+  apt-get update<br>
+  apt-get install python-certbot-apache -y<br>
+  certbot --apache -d example.com<br>
+  certbot -d example.com -d *.example.com --manual --preferred-challenges dns certonly</p>
