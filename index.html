@@ -76,7 +76,7 @@ service apache2 restart</p>
   apt install default-jdk -y<br>
   groupadd -r wildfly<br>
   useradd -r -g wildfly -d /opt/wildfly -s /sbin/nologin wildfly<br>
-  wget http://107.175.83.110/wildfly.tar.gz -P /tmp<br>
+  wget https://dl.dropboxusercontent.com/s/1zjo8zkws7s637d/wildfly.tar.gz -P /tmp<br>
   tar xf /tmp/wildfly.tar.gz -C /opt/<br>
   chown -RH wildfly: /opt/wildfly<br>
   mkdir -p /etc/wildfly<br>
