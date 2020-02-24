@@ -1,5 +1,3 @@
-
-
 <p>apt-get update<br>
   export LANG=C.UTF-8<br>
   apt-get install -y  software-properties-common<br>
@@ -74,3 +72,23 @@ service apache2 restart</p>
   apt-get install python-certbot-apache -y<br>
   certbot --apache -d example.com<br>
   certbot -d example.com -d *.example.com --manual --preferred-challenges dns certonly</p>
+<p>apt update<br>
+  apt install default-jdk -y<br>
+  groupadd -r wildfly<br>
+  useradd -r -g wildfly -d /opt/wildfly -s /sbin/nologin wildfly<br>
+  wget http://107.175.83.110/wildfly.tar.gz -P /tmp<br>
+  tar xf /tmp/wildfly.tar.gz -C /opt/<br>
+  chown -RH wildfly: /opt/wildfly<br>
+  mkdir -p /etc/wildfly<br>
+  cp /opt/wildfly/docs/contrib/scripts/systemd/wildfly.conf /etc/wildfly/<br>
+  cp /opt/wildfly/docs/contrib/scripts/systemd/launch.sh /opt/wildfly/bin/<br>
+  sh -c 'chmod +x /opt/wildfly/bin/*.sh'<br>
+  cp /opt/wildfly/docs/contrib/scripts/systemd/wildfly.service /etc/systemd/system/<br>
+  ufw disable<br>
+  systemctl enable wildfly<br>
+  /opt/wildfly/bin/add-user.sh<br>
+  mkdir /var/run/wildfly/<br>
+  chown wildfly: /var/run/wildfly/<br>
+  systemctl daemon-reload<br>
+  systemctl restart wildfly<br>
+rm -rf /tmp/wildfly.tar.gz</p>
