@@ -16,7 +16,7 @@ apt install gnupg -y
   apt-get update<br>
   apt-get install -y curl zip unzip<br>
   apt install php7.2-fpm php7.2-common php7.2-cli php7.2-gd php7.2-mysql php7.2-curl php7.2-intl php7.2-mbstring php7.2-bcmath php7.2-imap php7.2-xml php7.2-zip<br>
-  apt-get install apache2  libapache2-mod-php7.4 mysql-server -y<br>
+  apt-get install apache2  libapache2-mod-php7.2 mysql-server -y<br>
   echo &quot;&lt;Directory /var/www/html&gt;&quot; &gt;&gt; /etc/apache2/sites-enabled/000-default.conf<br>
   echo &quot;Options Indexes FollowSymLinks MultiViews&quot; &gt;&gt; /etc/apache2/sites-enabled/000-default.conf<br>
   echo &quot;AllowOverride All&quot; &gt;&gt; /etc/apache2/sites-enabled/000-default.conf<br>
@@ -26,9 +26,9 @@ apt install gnupg -y
   echo &quot;Protocols h2 h2c http/1.1&quot; &gt;&gt; /etc/apache2/apache2.conf<br>
   a2enmod rewrite<br>
   a2enmod proxy_fcgi proxy proxy_http http2 ssl expires headers rewrite proxy_fcgi setenvif actions fastcgi alias<br>
-  a2enconf php7.4-fpm<br>
+  a2enconf php7.2-fpm<br>
   a2enmod http2<br>
-  a2dismod php7.4<br>
+  a2dismod php7.2<br>
   a2dismod mpm_prefork<br>
   a2enmod mpm_event<br>
   service apache2 restart</p>
